@@ -3,11 +3,10 @@
 use RestAPI\User;
 
 include BASEPATH . "/model/User.php";
-
-$user = new User();
-$method = $_SERVER['REQUEST_METHOD'];
 $request = explode('/', trim($_SERVER['PATH_INFO'], '/'));
-$action = $request[1] ?? null;
+
+$user    = new User();
+$action  = $request[1] ?? null;
 
 switch ($action) {
     case 'details':

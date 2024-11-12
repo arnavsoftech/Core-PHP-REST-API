@@ -6,11 +6,8 @@ header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 
 define('BASEPATH', __DIR__);
 include_once "config/autoload.php";
-// Get the HTTP method
-$method = $_SERVER['REQUEST_METHOD'];
 
 // Get the request data
 $request = explode('/', trim($_SERVER['PATH_INFO'], '/'));
 $apiRoute = $request[0] ?? 'users';
 require BASEPATH . "/api/$apiRoute.php";
-
