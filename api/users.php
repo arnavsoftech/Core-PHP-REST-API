@@ -3,25 +3,24 @@
 use RestAPI\User;
 
 include BASEPATH . "/model/User.php";
-$request = explode('/', trim($_SERVER['PATH_INFO'], '/'));
-
 $user    = new User();
-$action  = $request[1] ?? null;
+$action  = segment(2);
 
 switch ($action) {
     case 'details':
-        http_response_code(200);
-        $id = $request[2];
+        $id = segment(3);
         $item = $user->getUser($id);
-        echo json_encode(['success' => true, 'data' => $item, 'message' => 'Success']);
+        if (is_object($item)) {
+            render(true, null, $item);
+        } else {
+            render(false, "Record not found");
+        }
         break;
     case 'all':
-        http_response_code(200);
         $items = $user->allUsers();
-        echo json_encode(['success' => true, 'data' => $items, 'message' => 'Success']);
+        render(true, 'All Users', $items);
         break;
     default:
-        http_response_code(405);
-        echo json_encode(["message" => "Method not allowed"]);
+        render(false, 'Method not allowed', null, 405);
         break;
 }

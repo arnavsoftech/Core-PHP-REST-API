@@ -610,6 +610,7 @@ class Database
      */
     public function escape($str)
     {
+        if ($str == null) $str = '';
         return $this->mysql->real_escape_string($str);
     }
 

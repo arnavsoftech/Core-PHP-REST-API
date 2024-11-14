@@ -8,6 +8,5 @@ define('BASEPATH', __DIR__);
 include_once "config/autoload.php";
 
 // Get the request data
-$request = explode('/', trim($_SERVER['PATH_INFO'], '/'));
-$apiRoute = $request[0] ?? 'users';
+$apiRoute = segment(1) ?? 'users';
 require BASEPATH . "/api/$apiRoute.php";
